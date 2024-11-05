@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.corretora.datasource.model.Titulo;
 import com.example.corretora.repository.TituloRepository;
+import com.example.corretora.service.BuscarTituloServiceImpl;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -18,11 +19,13 @@ public class TituloController {
 
 	@Autowired
 	private TituloRepository tituloRepository;
+	
+	@Autowired
+	private BuscarTituloServiceImpl serviceBuscar;
 
 	@GetMapping
 	public List<Titulo> buscarTitulo() {
-
-		return tituloRepository.findAll();
+	return serviceBuscar.buscarTodosOsTitulos();
 
 	}
 
