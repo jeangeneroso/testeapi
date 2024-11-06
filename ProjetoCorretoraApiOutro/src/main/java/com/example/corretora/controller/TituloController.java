@@ -19,34 +19,31 @@ public class TituloController {
 
 	@Autowired
 	private TituloRepository tituloRepository;
-	
+
 	@Autowired
 	private BuscarTituloServiceImpl serviceBuscar;
 
 	@GetMapping
 	public List<Titulo> buscarTitulo() {
-	return serviceBuscar.buscarTodosOsTitulos();
+		return serviceBuscar.buscarTodosOsTitulos();
 
 	}
 
 	@GetMapping(path = "api/titulo-emissor_master")
 	public ResponseEntity<Object> buscarTitulosMaster(@PathVariable(name = "emissor", required = true) String emissor) {
-		if (emissor == " Banco Master SA " && emissor == " Banco Master de Investimentos SA ") {
-			return ResponseEntity.ok(tituloRepository.findAll(emissor));
-
-		}
-		/* return (ResponseEntity<Object>) tituloRepository.findAll(); */
-		return null;
+		return serviceBuscar.buscarTitulosMaster(emissor);
 	}
 
 	@GetMapping(path = "api/titulo-emissor")
 	public ResponseEntity<Object> buscarTitulosOutrosEmissores(@PathVariable(name = "emissor", required = true) String emissor) {
-		if (emissor != " Banco Master SA " && emissor != " Banco Master de Investimentos SA ") {
-			return ResponseEntity.ok(tituloRepository.findAll(emissor));
+		return serviceBuscar.buscarTitulosOutrosEmissores(emissor);
 
-		}
-		/* return (ResponseEntity<Object>) tituloRepository.findAll(); */
-		return null;
 	}
+	
+	@GetMapping(path = "api/lastro")
+	public List<Titulo> buscarTituloLastro() {
+		return serviceBuscar.buscarLastro();
 
+	}
+	
 }
